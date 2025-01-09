@@ -43,8 +43,8 @@ The project uses two primary datasets:
 - Discuss potential factors influencing results and areas for further exploration.  
 
 ## Tools and Technologies  
--Data Collection: Python
--Data Analysis and Visualization: Pandas, Matplotlib, Seaborn
--Statistical Testing: Python's scipy library
+- Data Collection: Python
+- Data Analysis and Visualization: Pandas, Matplotlib, Seaborn
+- Statistical Testing: Python's scipy library
 
 
