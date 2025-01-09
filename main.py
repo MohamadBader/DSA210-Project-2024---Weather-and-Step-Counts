@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the data
-file_path = r'E:\user\Documents\Sabanci University Courses\CS Courses\CS210\xml_to_csv_project\step_count_data_with_day.csv'
+file_path = r'E:\user\Documents\Sabanci University Courses\CS Courses\CS210\xml_to_csv_project\Data Folder\step_count_data_with_day.csv'
 step_data = pd.read_csv(file_path)
 
 # Convert the Date column to a datetime object
 step_data['Date'] = pd.to_datetime(step_data['Date'])
+
 
 # Display the first few rows of the data
 print(step_data.head())
@@ -26,6 +27,7 @@ plt.title('Distribution of Daily Step Counts', fontsize=16)
 plt.xlabel('Steps', fontsize=12)
 plt.ylabel('Frequency', fontsize=12)
 plt.show()
+
 
 # Plot step counts over time
 plt.figure(figsize=(15, 6))
@@ -78,16 +80,15 @@ high_threshold = step_data['Steps'].quantile(0.95)
 # Identify outlier days
 outliers = step_data[(step_data['Steps'] < low_threshold) | (step_data['Steps'] > high_threshold)]
 print(f"Outliers (low threshold: {low_threshold}, high threshold: {high_threshold}):")
-print(outliers)
-
-
+with pd.option_context('display.max_rows', None):
+    print(outliers)
 
 
 
 
 
 # Load the weather data
-weather_file_path = 'weather_data.csv'  
+weather_file_path = r'E:\user\Documents\Sabanci University Courses\CS Courses\CS210\xml_to_csv_project\Data Folder\weather_data.csv'  
 weather_data = pd.read_csv(weather_file_path)
 
 # Convert the date column to datetime for alignment
@@ -99,7 +100,6 @@ merged_data = pd.merge(step_data, weather_data, left_on='Date', right_on='date',
 
 # Display the first few rows of the merged data
 print(merged_data.head())
-
 
 # Calculate average steps by temperature range
 temperature_bins = [0, 50, 70, 90, 110]  # Define temperature ranges (in Fahrenheit)
@@ -115,7 +115,6 @@ print(avg_steps_by_temp_range)
 avg_steps_by_weather = merged_data.groupby('description')['Steps'].mean()
 print("\nAverage Steps by Weather Description:")
 print(avg_steps_by_weather)
-
 
 
 import matplotlib.pyplot as plt
@@ -141,18 +140,6 @@ plt.xticks(rotation=45)
 plt.grid(True)
 plt.show()
 
-# Line Plot: Steps and Temperature Trends Over Time
-plt.figure(figsize=(15, 6))
-plt.plot(merged_data['Date'], merged_data['Steps'], label='Steps', color='blue', alpha=0.6)
-plt.plot(merged_data['Date'], merged_data['temperature'], label='Temperature (°F)', color='red', alpha=0.6)
-plt.title('Steps and Temperature Trends Over Time', fontsize=16)
-plt.xlabel('Date', fontsize=12)
-plt.ylabel('Steps / Temperature', fontsize=12)
-plt.legend()
-plt.grid(True)
-plt.show()
- 
-
 
 # Correlation between temperature and step counts
 correlation = merged_data['temperature'].corr(merged_data['Steps'])
@@ -163,42 +150,5 @@ sns.lmplot(data=merged_data, x='temperature', y='Steps', scatter_kws={'alpha': 0
 plt.title('Steps vs. Temperature with Regression Line')
 plt.xlabel('Temperature (°F)')
 plt.ylabel('Steps')
-plt.show()
-
-
-import numpy as np
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score
-import matplotlib.pyplot as plt
-
-# Extract the features (temperature) and target (steps)
-X = merged_data['temperature'].values.reshape(-1, 1)
-y = merged_data['Steps']
-
-# Create polynomial features (degree 2 for simplicity)
-poly = PolynomialFeatures(degree=2)
-X_poly = poly.fit_transform(X)
-
-# Fit a linear regression model on the polynomial features
-model = LinearRegression()
-model.fit(X_poly, y)
-
-# Make predictions
-y_pred = model.predict(X_poly)
-
-# Evaluate the model
-r2 = r2_score(y, y_pred)
-print(f"R-squared for Polynomial Regression (degree 2): {r2:.2f}")
-
-# Visualize the original data and the polynomial fit
-plt.figure(figsize=(10, 6))
-plt.scatter(merged_data['temperature'], y, color='blue', alpha=0.5, label='Actual Data')
-plt.plot(merged_data['temperature'], y_pred, color='red', label='Polynomial Fit (degree 2)')
-plt.title('Steps vs. Temperature with Polynomial Regression')
-plt.xlabel('Temperature (°F)')
-plt.ylabel('Steps')
-plt.legend()
-plt.grid(True)
 plt.show()
 
