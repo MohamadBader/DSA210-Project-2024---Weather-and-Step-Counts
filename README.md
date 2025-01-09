@@ -47,4 +47,22 @@ The project uses two primary datasets:
 - Data Analysis and Visualization: Pandas, Matplotlib, Seaborn
 - Statistical Testing: Python's scipy library
 
+## Directory Structure
 
+### Data Folder:
+- `export_health_app.zip`: Contains raw data exported from the iPhone Health app.
+- `step_count_data_with_day.csv`: Cleaned step count data with dates and days of the week.
+- `weather_data.csv`: Daily weather data including temperature and conditions.
+
+### Extracting Data Python Codes:
+- `extracting_step_counts_data.py`: Script for processing and cleaning step count data.
+- `extracting_weather_data.py`: Script for retrieving and formatting weather data.
+
+### Project Figures:
+- Contains all the visualizations and diagrams generated during the analysis.
+
+### Project Report:
+- `CS210 Project Report.docx`: Final report summarizing the project's objectives, methodology, findings, and conclusions.
+
+### Main Analysis Script:
+- `main.py`: Combines all data analysis steps, including cleaning, visualizations, and statistical tests.
